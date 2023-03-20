@@ -28,4 +28,4 @@ class UserBookRelation(models.Model):
     rate = models.PositiveSmallIntegerField(choices=RATE_CHOICES, null=True)
 
     def __str__(self):
-        return f'User:{self.user.username} : Book:{self.book.name}, RATE:{self.rate}'
+        return f'User:{self.user.username}: Book:{self.book.name}, RATE:{self.rate}'
