@@ -2,3 +2,5 @@
 .idea
 venv
 https:
+books/books/.env
+echo .env
