@@ -16,6 +16,7 @@ class BookSerializer(ModelSerializer):
     annotated_likes = serializers.IntegerField(read_only=True)   #2способ вычисление на уровне базы
     rating = serializers.DecimalField(max_digits=3, decimal_places=2, read_only=True)
     owner_name = serializers.CharField(source='owner.username', default="", read_only=True)
+
     readers = BookReaderSerializer(many=True, read_only=True)
     class Meta:
         model = Book
@@ -27,8 +28,11 @@ class BookSerializer(ModelSerializer):
 
 
 class UserBookRelationSerializer(ModelSerializer):
+
     class Meta:
         model = UserBookRelation
-        fields = ('book', 'like', 'in_bookmarks', 'rate')
+        fields = ('book', 'like', 'in_bookmarks', 'rate',)
+
+
 
 
