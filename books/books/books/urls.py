@@ -20,6 +20,11 @@ from rest_framework.routers import SimpleRouter
 
 from store.views import BookViewSet, auth, UserBookRelationView
 
+from django.conf.urls import include
+
+from django.conf import settings
+from django.conf.urls.static import static
+
 router = SimpleRouter()
 router.register(r'book', BookViewSet)
 router.register(r'book_relation', UserBookRelationView)
@@ -28,7 +33,10 @@ router.register(r'book_relation', UserBookRelationView)
 urlpatterns = [
     path('admin/', admin.site.urls),
     url('', include('social_django.urls', namespace='social')),
-    path('auth/', auth)
+    path('auth/', auth),
+
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += router.urls

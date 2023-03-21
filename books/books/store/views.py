@@ -5,7 +5,7 @@ from rest_framework.mixins import UpdateModelMixin
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 
-from .models import Book, UserBookRelation
+from .models import Book, UserBookRelation, Profile
 from .permission import IsOwnerOrStaffOrReadOnly
 from .serializers import BookSerializer, UserBookRelationSerializer
 
@@ -38,5 +38,8 @@ class UserBookRelationView(UpdateModelMixin, GenericViewSet):
 
 
 
+
 def auth(request):
     return render(request, 'oauth.html')
+
+

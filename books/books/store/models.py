@@ -2,6 +2,18 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
+from django.conf import settings
+
+class Profile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True,)
+    date_of_birth = models.DateField(blank=True, null=True, default=0)
+    photo = models.ImageField(upload_to='users/%Y/%m/%d', blank=True)
+
+    def __str__(self):
+        return 'Profile for user {}'.format(self.user.username)
+
+
+
 class Book(models.Model):
     name = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=7, decimal_places=2)
@@ -29,3 +41,6 @@ class UserBookRelation(models.Model):
 
     def __str__(self):
         return f'User:{self.user.username}: Book:{self.book.name}, RATE:{self.rate}'
+
+
+
