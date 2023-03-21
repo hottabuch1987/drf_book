@@ -5,12 +5,14 @@ from .models import Book, UserBookRelation
 
 
 class BookSerializer(ModelSerializer):
+    likes_count = serializers.SerializerMethodField()
 
     class Meta:
         model = Book
-        fields = ('id', 'name', 'price', 'author_name',)
+        fields = ('id', 'name', 'price', 'author_name', 'likes_count')
 
-
+    def get_likes_count(self, instance):
+        return UserBookRelation.objects.filter(book=instance, like=True).count()
 
 
 

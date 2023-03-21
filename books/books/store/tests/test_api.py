@@ -75,7 +75,7 @@ class BooksAPITestCase(APITestCase):
         #self.book_1 = Book.objects.get(id=self.book_1.id)
         self.assertEqual(575, self.book_1.price)
 
-    def test_update_not_owner(self):### test должкн упасть
+    def test_update_not_owner(self):### test должкн упастьб так как не владелец книги
         self.user2 = User.objects.create(username='test_username2',)
         url = reverse('book-detail', args=(self.book_1.id,))
         data = {
@@ -92,7 +92,7 @@ class BooksAPITestCase(APITestCase):
         # self.book_1 = Book.objects.get(id=self.book_1.id)
         self.assertEqual(25, self.book_1.price)
 
-    def test_update_not_owner_but_staff(self):
+    def test_update_not_owner_but_staff(self): #админ редактирует
         self.user2 = User.objects.create(username='test_username2', is_staff=True)
         url = reverse('book-detail', args=(self.book_1.id,))
         data = {
@@ -108,7 +108,8 @@ class BooksAPITestCase(APITestCase):
         self.book_1.refresh_from_db()  # Обнавляем обьект#
 
         self.assertEqual(575, self.book_1.price)
-#######################################################
+
+#################################################################################
 class BooksRelationTestCase(APITestCase):
     def setUp(self):
         self.user = User.objects.create(username='test_username')
