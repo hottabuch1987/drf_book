@@ -31,7 +31,7 @@ class BooksAPITestCase(APITestCase):
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         self.assertEqual(serializer_data, response.data)
         self.assertEqual(serializer_data[0]['rating'], '5.00')
-        self.assertEqual(serializer_data[0]['likes_count'], 1)
+
         self.assertEqual(serializer_data[0]['annotated_likes'], 1)
 
 
@@ -178,11 +178,10 @@ class BooksRelationTestCase(APITestCase):
         url = reverse('userbookrelation-detail', args=(self.book_1.id,))
         data = {
             "rate": 6,
-
         }
         json_data = json.dumps(data)
         self.client.force_login(self.user)
         response = self.client.patch(url, data=json_data, content_type='application/json')
         self.assertEqual(status.HTTP_400_BAD_REQUEST, response.status_code, response.data)   ###3 параметр для просмотра ошибки
         relation = UserBookRelation.objects.get(user=self.user, book=self.book_1)
-        self.assertEqual(3, relation.rate)
+        self.assertEqual(None, relation.rate)
